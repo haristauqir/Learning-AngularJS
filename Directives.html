@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body ng-app="myApp">
+
+    <h1> Angular Directives</h1>
+
+<div ng-controller="myCtrl">
+    <h2> Change Function </h2>
+  <p>Write something in the input field:</p>
+  <input type="text" ng-change="changeFunc()" ng-model="myValue" />
+  <p>The input field has changed {{changeCount}} times.</p>
+  <br>
+  <hr>
+  <h2> Click Function </h2>
+  <button ng-click="clickFunc()">OK</button>
+  <p>The button has been clicked {{clickCount}} times.</p>
+  <br>
+  <hr>
+  <h2>Focus </h2>
+  <input type="text" ng-focus="focusCount = focusCount + 1" ng-init="focusCount=0">
+  <p> Field has been focused: {{focusCount}} </p>
+
+  <br>
+  <hr>
+  <h2>if Condition </h2>
+  Keep HTML: <input type="checkbox" ng-model="myVar" ng-init="myVar = true">
+  
+  <div ng-if="myVar">
+  <h3>Welcome</h3>
+  <p>Welcome to my home.</p>
+  <hr>
+  <p>The DIV element will be removed when the checkbox is not checked.</p>
+  <p>The DIV element will return, if you check the checkbox.</p>
+</div>
+<hr>
+  <br>
+  <h2>Key up Event </h2>
+  <input ng-keyup="keyupFunc()" />
+  
+  <p> You have pressed key {{keyupCount}} </p>
+<hr>
+<h2>Loops </h2>
+
+<table ng-model="records" ng-init="records=[1,2,3,4,5,6,7,8,9,10]" border="2"> 
+<tr ng-repeat="x in records"> 
+    <td>
+        {{x}} 
+    </td>
+</tr>    
+</table> 
+  
+
+</div>
+
+<script>
+  angular.module('myApp', [])
+    .controller('myCtrl', ['$scope', function($scope) {
+      $scope.changeCount = 0;
+      $scope.changeFunc = function() {
+        $scope.changeCount++;
+      };
+      $scope.clickCount = 0;
+      $scope.clickFunc = function() {
+        $scope.clickCount++;
+      };
+      $scope.keyupCount = 0;
+      $scope.keyupFunc = function() {
+      $scope.keyupCount++;
+      };
+    }]);
+</script>
+
+</body>
+</html>
