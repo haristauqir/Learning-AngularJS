@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body >
+
+
+<div ng-app="todoApp" ng-controller="todoController">
+
+    <p>The list of to do tasks:</p>
+    <ul>
+        <li ng-repeat="x in toDoList">
+            {{ x }} <span ng-click="removeTask($index)">&times;</span>
+        </li>
+    </ul>
+
+<p>Enter new Task: <input type="text" ng-model='taskName'/> <button ng-click="addTask()">Add</button> </p> 
+<span> {{ errortext }}</span>
+</div>
+
+<script>
+var app = angular.module('todoApp', []).controller('todoController', function($scope) {
+    $scope.toDoList = ['Morning Meeting', 'Lunch Break','Complete AngularJS Course'];
+    
+    //** add task
+    $scope.addTask = function() {
+        $scope.errortext = "";
+        if (!$scope.toDoList) {return;} 
+        //** return if empty
+        if ($scope.taskName == "" || $scope.taskName == null) {
+            $scope.errortext = "Please enter task name...";
+        }
+        //** add task 
+        else if ($scope.toDoList.indexOf($scope.taskName) == -1) {
+            $scope.toDoList.push($scope.taskName);
+        } 
+        //** item already exists
+        else {
+            $scope.errortext = "Item is already added in the to do list..."
+        }
+    }
+
+    //** remove task
+    $scope.removeTask = function(x) {
+        $scope.toDoList.splice(x, 1)
+    }
+
+});
+</script>
+
+</body>
+</html>
